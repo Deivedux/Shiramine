@@ -1,7 +1,14 @@
 {
 	"token": "",
 	"default_prefix": ".",
-	"botlog_webhook_url": "",
 	"owner_ids": [],
+	"anti_bot_farm": {
+		"enabled": false,
+		"leave_guild_if": {
+			"min_member_count": 20,
+			"min_bot_rate": 70.0
+		}
+	},
+	"botlog_webhook_url": "",
 	"moderatecontent_api_key": ""
 }
