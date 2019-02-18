@@ -1,0 +1,5 @@
+{
+	"HELP_response_footer": "Type `{0}help <command>` to read more about a specific command.",
+	"ADMINISTRATION_prefix_current": "**My prefix here is** `{0}`",
+	"ADMINISTRATION_prefix_update": "**Prefix updated to** `{0}`"
+}

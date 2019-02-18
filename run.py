@@ -1,26 +1,27 @@
 import discord
 import sqlite3
 from discord.ext import commands
-from cogs.ObjectCache import config
-from cogs.ObjectCache import server_config
 
 conn = sqlite3.connect('configs/Database.db')
 c = conn.cursor()
-c.execute("CREATE TABLE IF NOT EXISTS ServerConfig (Guild INTEGER unique, Prefix TEXT)")
+c.execute("CREATE TABLE IF NOT EXISTS ServerConfig (Guild INTEGER unique, Prefix TEXT, Language TEXT, )")
+
+from cogs.ObjectCache import config
+from cogs.ObjectCache import server_config
 
 async def get_prefix(bot, message):
 	if message.guild:
 		try:
-			return server_config[message.guild.id]['prefix']
+			return commands.when_mentioned_or(server_config[message.guild.id]['prefix'])(bot, message)
 		except KeyError:
-			return config['default_prefix']
+			return commands.when_mentioned_or(config['default_prefix'])(bot, message)
 	else:
-		return config['default_prefix']
+		return commands.when_mentioned_or(config['default_prefix'])(bot, message)
 
-bot = commands.AutoShardedBot(command_prefix = commands.when_mentioned_or(get_prefix), case_insensitive = True, max_messages = 100)
+bot = commands.AutoShardedBot(command_prefix = get_prefix, case_insensitive = True, max_messages = 100)
 bot.remove_command('help')
 
-startup_extensions = ['cogs.BotLog', 'cogs.Events']
+startup_extensions = ['cogs.BotLog', 'cogs.Events', 'cogs.Administration', 'cog.Help']
 for cog in startup_extensions:
 	try:
 		bot.load_extension(cog)
@@ -47,7 +48,7 @@ async def on_ready():
 
 @bot.event
 async def on_message(message):
-	if message.bot:
+	if message.author.bot:
 		return
 
 	await bot.process_commands(message)
