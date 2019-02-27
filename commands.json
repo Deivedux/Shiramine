@@ -1,3 +1,51 @@
 {
-	"title": ["help", "h"]
+	"help": {
+		"title": ["help", "h"],
+		"description": "HELP_command_help",
+		"permissions": ["HELP_permission_none"],
+		"examples": ["help", "h help"],
+		"module": "Help"
+	},
+	"invite": {
+		"title": ["invite"],
+		"description": "HELP_command_invite",
+		"permissions": ["HELP_permission_none"],
+		"examples": ["invite"],
+		"module": "Help"
+	},
+	"prefix": {
+		"title": ["prefix"],
+		"description": "HELP_command_prefix",
+		"permissions": ["HELP_permission_manageserver"],
+		"examples": ["prefix", "prefix ."],
+		"module": "Administration"
+	},
+	"kick": {
+		"title": ["kick", "k"],
+		"description": "HELP_command_kick",
+		"permissions": ["HELP_permission_kickmembers"],
+		"examples": ["k @BadGuy your behavior is toxic"],
+		"module": "Administration"
+	},
+	"softban": {
+		"title": ["softban", "sb"],
+		"description": "HELP_command_softban",
+		"permissions": ["HELP_permission_kickmembers", "HELP_permission_managemessages"],
+		"examples": ["sb @BadGuy your behavior is toxic"],
+		"module": "Administration"
+	},
+	"ban": {
+		"title": ["ban", "b"],
+		"description": "HELP_command_ban",
+		"permissions": ["HELP_permission_banmembers"],
+		"examples": ["b @BadGuy your behavior is toxic"],
+		"module": "Administration"
+	},
+	"prune": {
+		"title": ["prune"],
+		"description": "HELP_command_prune",
+		"permissions": ["HELP_permission_managemessages"],
+		"examples": ["prune 10"],
+		"module": "Administration"
+	}
 }

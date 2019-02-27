@@ -13,8 +13,20 @@ with open('configs/config.json') as json_data:
 
 server_config_raw = c.execute("SELECT * FROM ServerConfig").fetchall()
 server_config = {}
+
+def server_cache(db_response):
+	server_config[int(db_response[0])] = {}
+	if db_response[1]:
+		server_config[int(db_response[0])]['prefix'] = db_response[1]
+	server_config[int(db_response[0])]['language'] = db_response[2]
+	if db_response[3]:
+		server_config[int(db_response[0])]['img_filter'] = int(db_response[3])
+	server_config[int(db_response[0])]['anti_invite'] = int(db_response[4])
+	server_config[int(db_response[0])]['anti_url'] = int(db_response[5])
+
 for i in server_config_raw:
-	server_config[int(i[0])] = {'prefix': i[1], 'language': i[2]}
+	server_cache(i)
+
 del server_config_raw
 
 response_string = {}
@@ -24,8 +36,8 @@ for i in os.listdir('./languages'):
 			response = json.load(file)
 		response_string[i.strip('.json')] = response
 
-def get_lang(ctx):
+def get_lang(msg, response):
 	try:
-		return response_string[server_config[ctx.guild.id]['language']]
+		return response_string[server_config[msg.guild.id]['language']][response]
 	except:
-		return response_string['english']
+		return response_string['english'][response]

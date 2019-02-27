@@ -1,2 +1,2 @@
 # Shiramine
-A general-purpose bot for every need ever.
+A multilingual general-purpose Discord bot.
