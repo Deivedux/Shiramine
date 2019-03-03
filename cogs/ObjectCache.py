@@ -22,7 +22,6 @@ def server_cache(db_response):
 	if db_response[3]:
 		server_config[int(db_response[0])]['img_filter'] = int(db_response[3])
 	server_config[int(db_response[0])]['anti_invite'] = int(db_response[4])
-	server_config[int(db_response[0])]['anti_url'] = int(db_response[5])
 
 for i in server_config_raw:
 	server_cache(i)
@@ -36,8 +35,8 @@ for i in os.listdir('./languages'):
 			response = json.load(file)
 		response_string[i.strip('.json')] = response
 
-def get_lang(msg, response):
+def get_lang(guild, response):
 	try:
-		return response_string[server_config[msg.guild.id]['language']][response]
+		return response_string[server_config[guild.id]['language']][response]
 	except:
 		return response_string['english'][response]

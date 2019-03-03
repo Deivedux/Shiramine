@@ -26,18 +26,20 @@ class Help:
 			embed.set_author(name = self.bot.user.name, icon_url = self.bot.user.avatar_url)
 			embed.add_field(name = 'Help', value = ', '.join(['`' + guild_prefix + i + '`' for i in commands_json.keys() if commands_json[i]['module'] == 'Help']), inline = False)
 			embed.add_field(name = 'Administration', value = ', '.join(['`' + guild_prefix + i + '`' for i in commands_json.keys() if commands_json[i]['module'] == 'Administration']), inline = False)
-			embed.set_footer(text = get_lang(ctx.message, 'HELP_response_footer').format(guild_prefix))
+			embed.add_field(name = 'Utility', value = ', '.join(['`' + guild_prefix + i + '`' for i in commands_json.keys() if commands_json[i]['module'] == 'Utility']), inline = False)
+			embed.set_footer(text = get_lang(ctx.guild, 'HELP_response_footer').format(guild_prefix))
 
 		else:
 
 			try:
 				cmd_data = commands_json[command_name.lower()]
 			except:
-				await ctx.send(embed = discord.Embed(description = get_lang(ctx, 'HELP_command_notfound'), color = 0xFF0000))
+				return await ctx.send(embed = discord.Embed(description = get_lang(ctx, 'HELP_command_notfound'), color = 0xFF0000))
 
-			embed = discord.Embed(title = ' / '.join(['`' + guild_prefix + i + '`' for i in cmd_data['title']]), description = get_lang(ctx.message, cmd_data['description']), color = 0x00FF00)
-			embed.add_field(name = get_lang(ctx.message, 'HELP_permission_string'), value = '\n'.join([get_lang(ctx.message, i) for i in cmd_data['permissions']]), inline = False)
-			embed.add_field(name = get_lang(ctx.message, 'HELP_example_string'), value = ' or '.join(['`' + guild_prefix + i + '`' for i in cmd_data['examples']]), inline = False)
+			embed = discord.Embed(title = ' / '.join(['`' + guild_prefix + i + '`' for i in cmd_data['title']]), description = get_lang(ctx.guild, cmd_data['description']), color = 0x00FF00)
+			embed.add_field(name = get_lang(ctx.guild, 'HELP_permission_string_user'), value = '\n'.join([get_lang(ctx.guild, i) for i in cmd_data['user_permissions']]), inline = True)
+			embed.add_field(name = get_lang(ctx.guild, 'HELP_permission_string_bot'), value = '\n'.join([get_lang(ctx.guild, i) for i in cmd_data['bot_permissions']]), inline = True)
+			embed.add_field(name = get_lang(ctx.guild, 'HELP_example_string'), value = ' or '.join(['`' + guild_prefix + i + '`' for i in cmd_data['examples']]), inline = False)
 			embed.set_footer(text = 'Module: ' + cmd_data['module'])
 
 		await ctx.send(embed = embed)

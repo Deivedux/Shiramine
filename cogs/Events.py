@@ -8,7 +8,7 @@ from cogs.ObjectCache import server_cache
 conn = sqlite3.connect('configs/Database.db')
 c = conn.cursor()
 
-sql_insert = "INSERT INTO ServerConfig (Guild, Language, AntiInvite, AntiURL, GreetMsg, GreetDel, GreetToggle, LeaveMsg, LeaveDel, LeaveToggle, GreetDmMsg, GreetDmToggle) VALUES ({0}, 'english', 0, 0, 'Welcome &user& to **&server&**!', 0, 0, '&user& has left.', 0, 0, 'Welcome to **&server&**!', 0)"
+sql_insert = "INSERT INTO ServerConfig (Guild, Language, AntiInvite, GreetMsg, GreetDel, LeaveMsg, LeaveDel, GreetDmMsg, GreetDmToggle) VALUES ({0}, 'english', 0, 'Welcome &user& to **&server&**!', 0, '&user& has left.', 0, 'Welcome to **&server&**!', 0)"
 
 class Events:
 	def __init__(self, bot):

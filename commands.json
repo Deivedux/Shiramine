@@ -2,50 +2,137 @@
 	"help": {
 		"title": ["help", "h"],
 		"description": "HELP_command_help",
-		"permissions": ["HELP_permission_none"],
+		"user_permissions": ["HELP_permission_none"],
+		"bot_permissions": ["HELP_permission_none"],
 		"examples": ["help", "h help"],
 		"module": "Help"
 	},
 	"invite": {
 		"title": ["invite"],
 		"description": "HELP_command_invite",
-		"permissions": ["HELP_permission_none"],
+		"user_permissions": ["HELP_permission_none"],
+		"bot_permissions": ["HELP_permission_none"],
 		"examples": ["invite"],
 		"module": "Help"
 	},
 	"prefix": {
 		"title": ["prefix"],
 		"description": "HELP_command_prefix",
-		"permissions": ["HELP_permission_manageserver"],
+		"user_permissions": ["HELP_permission_manageserver"],
+		"bot_permissions": ["HELP_permission_none"],
 		"examples": ["prefix", "prefix ."],
 		"module": "Administration"
 	},
 	"kick": {
 		"title": ["kick", "k"],
 		"description": "HELP_command_kick",
-		"permissions": ["HELP_permission_kickmembers"],
+		"user_permissions": ["HELP_permission_kickmembers"],
+		"bot_permissions": ["HELP_permission_kickmembers"],
 		"examples": ["k @BadGuy your behavior is toxic"],
 		"module": "Administration"
 	},
 	"softban": {
 		"title": ["softban", "sb"],
 		"description": "HELP_command_softban",
-		"permissions": ["HELP_permission_kickmembers", "HELP_permission_managemessages"],
+		"user_permissions": ["HELP_permission_kickmembers", "HELP_permission_managemessages"],
+		"bot_permissions": ["HELP_permission_banmembers"],
 		"examples": ["sb @BadGuy your behavior is toxic"],
 		"module": "Administration"
 	},
 	"ban": {
 		"title": ["ban", "b"],
 		"description": "HELP_command_ban",
-		"permissions": ["HELP_permission_banmembers"],
+		"user_permissions": ["HELP_permission_banmembers"],
+		"bot_permissions": ["HELP_permission_banmembers"],
 		"examples": ["b @BadGuy your behavior is toxic"],
 		"module": "Administration"
 	},
 	"prune": {
 		"title": ["prune"],
 		"description": "HELP_command_prune",
-		"permissions": ["HELP_permission_managemessages"],
+		"user_permissions": ["HELP_permission_managemessages"],
+		"bot_permissions": ["HELP_permission_managemessages"],
 		"examples": ["prune 10"],
 		"module": "Administration"
+	},
+	"lsar": {
+		"title": ["lsar"],
+		"description": "HELP_command_lsar",
+		"user_permissions": ["HELP_permission_none"],
+		"bot_permissions": ["HELP_permission_none"],
+		"examples": ["lsar"],
+		"module": "Administration"
+	},
+	"asar": {
+		"title": ["asar"],
+		"description": "HELP_command_asar",
+		"user_permissions": ["HELP_permission_manageroles"],
+		"bot_permissions": ["HELP_permission_none"],
+		"examples": ["asar Member"],
+		"module": "Administration"
+	},
+	"rsar": {
+		"title": ["rsar"],
+		"description": "HELP_command_rsar",
+		"user_permissions": ["HELP_permission_manageroles"],
+		"bot_permissions": ["HELP_permission_none"],
+		"examples": ["rsar Member"],
+		"module": "Administration"
+	},
+	"giverole": {
+		"title": ["giverole", "gr"],
+		"description": "HELP_command_giverole",
+		"user_permissions": ["HELP_permission_none"],
+		"bot_permissions": ["HELP_permission_manageroles"],
+		"examples": ["gr Member"],
+		"module": "Administration"
+	},
+	"removerole": {
+		"title": ["removerole", "rr"],
+		"description": "HELP_command_removerole",
+		"user_permissions": ["HELP_permission_none"],
+		"bot_permissions": ["HELP_permission_manageroles"],
+		"examples": ["rr Member"],
+		"module": "Administration"
+	},
+	"imgfilter": {
+		"title": ["imgfilter"],
+		"description": "HELP_command_imgfilter",
+		"user_permissions": ["HELP_permission_manageserver"],
+		"bot_permissions": ["HELP_permission_managemessages"],
+		"examples": ["imgfilter 80", "imgfilter"],
+		"module": "Administration"
+	},
+	"languages": {
+		"title": ["languages"],
+		"description": "HELP_command_languages",
+		"user_permissions": ["HELP_permission_none"],
+		"bot_permissions": ["HELP_permission_none"],
+		"examples": ["languages"],
+		"module": "Utility"
+	},
+	"setlang": {
+		"title": ["setlang"],
+		"description": "HELP_command_setlang",
+		"user_permissions": ["HELP_permission_manageserver"],
+		"bot_permissions": ["HELP_permission_none"],
+		"examples": ["setlang english"],
+		"module": "Utility"
+	},
+	"userinfo": {
+		"title": ["userinfo", "uinfo"],
+		"description": "HELP_command_userinfo",
+		"user_permissions": ["HELP_permission_none"],
+		"bot_permissions": ["HELP_permission_none"],
+		"examples": ["uinfo @member"],
+		"module": "Utility"
+	},
+	"avatar": {
+		"title": ["avatar", "av"],
+		"description": "HELP_command_avatar",
+		"user_permissions": ["HELP_permission_none"],
+		"bot_permissions": ["HELP_permission_none"],
+		"examples": ["av @member"],
+		"module": "Utility"
 	}
 }
