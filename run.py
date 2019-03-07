@@ -4,8 +4,9 @@ from discord.ext import commands
 
 conn = sqlite3.connect('configs/Database.db', detect_types = sqlite3.PARSE_DECLTYPES)
 c = conn.cursor()
-c.execute("CREATE TABLE IF NOT EXISTS ServerConfig (Guild INTEGER unique, Prefix TEXT, Language TEXT, ImgFilter INTEGER, AntiInvite INTEGER, GreetMsg TEXT, GreetChannel INTEGER, GreetDel INTEGER, LeaveMsg TEXT, LeaveChannel INTEGER, LeaveDel INTEGER, GreetDmMsg TEXT, GreetDmToggle INTEGER)")
+c.execute("CREATE TABLE IF NOT EXISTS ServerConfig (Guild INTEGER unique, Prefix TEXT, Language TEXT, ImgFilter INTEGER, GreetMsg TEXT, GreetChannel INTEGER, GreetDel INTEGER, LeaveMsg TEXT, LeaveChannel INTEGER, LeaveDel INTEGER, GreetDmMsg TEXT, GreetDmToggle INTEGER, MemberPersistence INTEGER)")
 c.execute("CREATE TABLE IF NOT EXISTS SelfAssignableRoles (Guild INTEGER, Role INTEGER)")
+c.execute("CREATE TABLE IF NOT EXISTS MemberPersistence (Guild INTEGER, User INTEGER, Nickname TEXT, Roles TEXT)")
 
 from cogs.ObjectCache import config
 from cogs.ObjectCache import server_config
@@ -22,7 +23,7 @@ async def get_prefix(bot, message):
 bot = commands.AutoShardedBot(command_prefix = get_prefix, case_insensitive = True, max_messages = 100)
 bot.remove_command('help')
 
-startup_extensions = ['cogs.Events', 'cogs.Administration', 'cogs.Help', 'cogs.Utility']
+startup_extensions = ['cogs.Events', 'cogs.Administration', 'cogs.Help', 'cogs.Utility', 'cogs.MemberPresence']
 for cog in startup_extensions:
 	try:
 		bot.load_extension(cog)

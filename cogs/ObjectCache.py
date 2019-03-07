@@ -21,7 +21,7 @@ def server_cache(db_response):
 	server_config[int(db_response[0])]['language'] = db_response[2]
 	if db_response[3]:
 		server_config[int(db_response[0])]['img_filter'] = int(db_response[3])
-	server_config[int(db_response[0])]['anti_invite'] = int(db_response[4])
+	server_config[int(db_response[0])]['member_persistence'] = int(db_response[12])
 
 for i in server_config_raw:
 	server_cache(i)

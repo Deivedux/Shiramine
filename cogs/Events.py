@@ -8,12 +8,13 @@ from cogs.ObjectCache import server_cache
 conn = sqlite3.connect('configs/Database.db')
 c = conn.cursor()
 
-sql_insert = "INSERT INTO ServerConfig (Guild, Language, AntiInvite, GreetMsg, GreetDel, LeaveMsg, LeaveDel, GreetDmMsg, GreetDmToggle) VALUES ({0}, 'english', 0, 'Welcome &user& to **&server&**!', 0, '&user& has left.', 0, 'Welcome to **&server&**!', 0)"
+sql_insert = "INSERT INTO ServerConfig (Guild, Language, GreetMsg, LeaveMsg, GreetDmMsg, GreetDmToggle, MemberPersistence) VALUES ({0}, 'english', 'Welcome &user& to **&server&**!', '&user& has left.', 'Welcome to **&server&**!', 0, 0)"
 
-class Events:
+class Events(commands.Cog):
 	def __init__(self, bot):
 		self.bot = bot
 
+	@commands.Cog.listener()
 	async def on_ready(self):
 		for guild in self.bot.guilds:
 			try:
@@ -31,6 +32,7 @@ class Events:
 			if not guild:
 				del server_config[i]
 
+	@commands.Cog.listener()
 	async def on_guild_join(self, guild):
 		conf = c.execute("SELECT * FROM ServerConfig WHERE Guild = " + str(guild.id)).fetchone()
 		if not conf:
@@ -42,6 +44,7 @@ class Events:
 		else:
 			server_cache(conf)
 
+	@commands.Cog.listener()
 	async def on_guild_remove(self, guild):
 		del server_config[guild.id]
 

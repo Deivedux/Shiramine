@@ -9,7 +9,7 @@ from collections import OrderedDict
 with open('commands.json') as json_data:
 	commands_json = json.load(json_data, object_pairs_hook = OrderedDict)
 
-class Help:
+class Help(commands.Cog):
 	def __init__(self, bot):
 		self.bot = bot
 
@@ -26,6 +26,7 @@ class Help:
 			embed.set_author(name = self.bot.user.name, icon_url = self.bot.user.avatar_url)
 			embed.add_field(name = 'Help', value = ', '.join(['`' + guild_prefix + i + '`' for i in commands_json.keys() if commands_json[i]['module'] == 'Help']), inline = False)
 			embed.add_field(name = 'Administration', value = ', '.join(['`' + guild_prefix + i + '`' for i in commands_json.keys() if commands_json[i]['module'] == 'Administration']), inline = False)
+			embed.add_field(name = 'MemberPresence', value = ', '.join(['`' + guild_prefix + i + '`' for i in commands_json.keys() if commands_json[i]['module'] == 'MemberPresence']), inline = False)
 			embed.add_field(name = 'Utility', value = ', '.join(['`' + guild_prefix + i + '`' for i in commands_json.keys() if commands_json[i]['module'] == 'Utility']), inline = False)
 			embed.set_footer(text = get_lang(ctx.guild, 'HELP_response_footer').format(guild_prefix))
 

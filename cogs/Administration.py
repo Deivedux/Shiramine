@@ -35,7 +35,7 @@ def dm_member(method, guild, moderator, reason):
 	return embed
 
 def member_action_confirm(guild, method, member, reason):
-	embed = discord.Embed(title = method, color = 0xFFFF00)
+	embed = discord.Embed(title = get_lang(guild, method), color = 0xFFFF00)
 	embed.set_thumbnail(url = member.avatar_url)
 	embed.add_field(name = get_lang(guild, 'ADMINISTRATION_method_member_name'), value = str(member), inline = True)
 	embed.add_field(name = get_lang(guild, 'ADMINISTRATION_method_member_id'), value = str(member.id), inline = True)
@@ -44,10 +44,11 @@ def member_action_confirm(guild, method, member, reason):
 
 	return embed
 
-class Administration:
+class Administration(commands.Cog):
 	def __init__(self, bot):
 		self.bot = bot
 
+	@commands.Cog.listener()
 	async def on_message(self, message):
 		if isinstance(message.channel, discord.TextChannel) and not message.author.bot and message.attachments and not message.channel.is_nsfw() and 'img_filter' in server_config[message.guild.id].keys() and message.guild.me.permissions_in(message.channel).manage_messages:
 			del_msg = False
@@ -63,7 +64,35 @@ class Administration:
 
 			if del_msg == True:
 				await message.delete()
-				await message.channel.send(content = get_lang(message.guild, 'ADMINISTRATION_imgfilter_deleted').format(message.author.mention, str(round(response_json['predictions']['adult']))), delete_after = 5)
+				await message.channel.send(content = get_lang(message.guild, 'ADMINISTRATION_imgfilter_deleted').format(message.author.mention, str(round(response_json['predictions']['adult']))))
+
+	@commands.Cog.listener()
+	async def on_member_remove(self, member):
+		if server_config[member.guild.id]['member_persistence'] == 1 and (len(member.roles) > 1 or member.nick):
+			c.execute("INSERT INTO MemberPersistence (Guild, User" + (', Nickname' if member.nick else '') + (', Roles' if len(member.roles) > 1 else '') + ") VALUES (" + str(member.guild.id) + ", " + str(member.id) + (", '" + member.nick.replace('\'', '\'\'') + "'" if member.nick else "") + (", '" + "|".join([str(role.id) for role in member.roles if role != member.guild.default_role]) + "'" if len(member.roles) > 1 else "") + ")")
+			conn.commit()
+
+	@commands.Cog.listener()
+	async def on_member_join(self, member):
+		if server_config[member.guild.id]['member_persistence'] == 1:
+			db_response = c.execute("SELECT Nickname, Roles FROM MemberPersistence WHERE Guild = " + str(member.guild.id) + " AND User = " + str(member.id)).fetchall()[-1]
+			if db_response:
+				nickname = db_response[0]
+				roles = list()
+				for i in db_response[1].split('|'):
+					role = member.guild.get_role(int(i))
+					if role and role < member.guild.me.top_role:
+						roles.append(role)
+
+				if nickname and len(roles) == 0:
+					await member.edit(nick = nickname)
+				elif not nickname and len(roles) > 0:
+					await member.edit(roles = roles)
+				elif nickname and len(roles) > 0:
+					await member.edit(nick = nickname, roles = roles)
+
+				c.execute("DELETE FROM MemberPersistence WHERE Guild = " + str(member.guild.id) + " AND User = " + str(member.id))
+				conn.commit()
 
 	@commands.command()
 	@commands.guild_only()
@@ -261,6 +290,20 @@ class Administration:
 			conn.commit()
 			server_config[ctx.guild.id]['img_filter'] = level
 			await ctx.send(embed = discord.Embed(description = get_lang(ctx.guild, 'ADMINISTRATION_imgfilter_enable').format(str(level)), color = 0x00FF00))
+
+	@commands.command()
+	@commands.has_permissions(manage_guild = True)
+	async def memberpersistence(self, ctx):
+		if server_config[ctx.guild.id]['member_persistence'] == 0:
+			c.execute("UPDATE ServerConfig SET MemberPersistence = 1 WHERE Guild = " + str(ctx.guild.id))
+			conn.commit()
+			server_config[ctx.guild.id]['member_persistence'] = 1
+			await ctx.send(embed = discord.Embed(description = get_lang(ctx.guild, 'ADMINISTRATION_memberpersistence_enabled'), color = 0x00FF00))
+		else:
+			c.execute("UPDATE ServerConfig SET MemberPersistence = 0 WHERE Guild = " + str(ctx.guild.id))
+			conn.commit()
+			server_config[ctx.guild.id]['member_persistence'] = 0
+			await ctx.send(embed = discord.Embed(description = get_lang(ctx.guild, 'ADMINISTRATION_memberpersistence_disabled'), color = 0x00FF00))
 
 
 def setup(bot):

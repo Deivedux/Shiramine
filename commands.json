@@ -103,6 +103,70 @@
 		"examples": ["imgfilter 80", "imgfilter"],
 		"module": "Administration"
 	},
+	"memberpersistence": {
+		"title": ["memberpersistence"],
+		"description": "HELP_command_memberpersistence",
+		"user_permissions": ["HELP_permission_manageserver"],
+		"bot_permissions": ["HELP_permission_managenicknames", "HELP_permission_manageroles"],
+		"examples": ["memberpersistence"],
+		"module": "Administration"
+	},
+	"greetmsg": {
+		"title": ["greetmsg"],
+		"description": "HELP_command_greetmsg",
+		"user_permissions": ["HELP_permission_manageserver"],
+		"bot_permissions": ["HELP_permission_none"],
+		"examples": ["greetmsg", "greetmsg Welcome &user&!"],
+		"module": "MemberPresence"
+	},
+	"greetdel": {
+		"title": ["greetdel"],
+		"description": "HELP_command_greetdel",
+		"user_permissions": ["HELP_permission_manageserver"],
+		"bot_permissions": ["HELP_permission_none"],
+		"examples": ["greetdel 30", "greetdel"],
+		"module": "MemberPresence"
+	},
+	"greet": {
+		"title": ["greet"],
+		"description": "HELP_command_greet",
+		"user_permissions": ["HELP_permission_manageserver"],
+		"bot_permissions": ["HELP_permission_none"],
+		"examples": ["greet"],
+		"module": "MemberPresence"
+	},
+	"leavemsg": {
+		"title": ["leavemsg"],
+		"description": "HELP_command_leavemsg", 
+		"user_permissions": ["HELP_permission_manageserver"],
+		"bot_permissions": ["HELP_permission_none"],
+		"examples": ["leavemsg", "leavemsg &user& has left."],
+		"module": "MemberPresence"
+	},
+	"leavedel": {
+		"title": ["leavedel"],
+		"description": "HELP_command_leavedel",
+		"user_permissions": ["HELP_permission_manageserver"],
+		"bot_permissions": ["HELP_permission_none"],
+		"examples": ["leavedel 30", "leavedel"],
+		"module": "MemberPresence"
+	},
+	"leave": {
+		"title": ["leave"],
+		"description": "HELP_command_leave",
+		"user_permissions": ["HELP_permission_manageserver"],
+		"bot_permissions": ["HELP_permission_none"],
+		"examples": ["leave"],
+		"module": "MemberPresence"
+	},
+	"greetdmmsg": {
+		"title": ["greetdmmsg"],
+		"description": "HELP_command_greetdmmsg",
+		"user_permissions": ["HELP_permission_manageserver"],
+		"bot_permissions": ["HELP_permission_none"],
+		"examples": ["greetdmmsg", "greetdmmsg Welcome &user&!"],
+		"module": "MemberPresence"
+	},
 	"languages": {
 		"title": ["languages"],
 		"description": "HELP_command_languages",
@@ -119,6 +183,14 @@
 		"examples": ["setlang english"],
 		"module": "Utility"
 	},
+	"ping": {
+		"title": ["ping"],
+		"description": "HELP_command_ping",
+		"user_permissions": ["HELP_permission_none"],
+		"bot_permissions": ["HELP_permission_none"],
+		"examples": ["ping"],
+		"module": "Utility"
+	},
 	"userinfo": {
 		"title": ["userinfo", "uinfo"],
 		"description": "HELP_command_userinfo",
@@ -133,6 +205,30 @@
 		"user_permissions": ["HELP_permission_none"],
 		"bot_permissions": ["HELP_permission_none"],
 		"examples": ["av @member"],
+		"module": "Utility"
+	},
+	"serverinfo": {
+		"title": ["serverinfo", "sinfo"],
+		"description": "HELP_command_serverinfo",
+		"user_permissions": ["HELP_permission_none"],
+		"bot_permissions": ["HELP_permission_none"],
+		"examples": ["sinfo"],
+		"module": "Utility"
+	},
+	"lookup": {
+		"title": ["lookup"],
+		"description": "HELP_command_lookup",
+		"user_permissions": ["HELP_permission_none"],
+		"bot_permissions": ["HELP_permission_none"],
+		"examples": ["lookup sbySHxA"],
+		"module": "Utility"
+	},
+	"raffle": {
+		"title": ["raffle"],
+		"description": "HELP_command_raffle",
+		"user_permissions": ["HELP_permission_none"],
+		"bot_permissions": ["HELP_permission_none"],
+		"examples": ["raffle", "raffle Members"],
 		"module": "Utility"
 	}
 }
