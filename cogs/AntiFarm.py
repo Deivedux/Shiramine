@@ -9,6 +9,7 @@ class AntiFarm(commands.Cog):
 	def __init__(self, bot):
 		self.bot = bot
 
+	@commands.Cog.listener()
 	async def on_ready(self):
 		for guild in self.bot.guilds:
 			if guild.member_count > farm_conditions['min_member_count']:
@@ -17,6 +18,7 @@ class AntiFarm(commands.Cog):
 				if result > farm_conditions['min_bot_rate']:
 					await guild.leave()
 
+	@commands.Cog.listener()
 	async def on_guild_join(self, guild):
 		if guild.member_count > farm_conditions['min_member_count']:
 			bots = [member for member in guild.members if member.bot]
@@ -24,6 +26,7 @@ class AntiFarm(commands.Cog):
 			if result > farm_conditions['min_bot_rate']:
 				await guild.leave()
 
+	@commands.Cog.listener()
 	async def on_member_join(self, member):
 		if member.guild.member_count > farm_conditions['min_member_count']:
 			bots = [member for member in member.guild.members if member.bot]
@@ -31,6 +34,7 @@ class AntiFarm(commands.Cog):
 			if result > farm_conditions['min_bot_rate']:
 				await member.guild.leave()
 
+	@commands.Cog.listener()
 	async def on_member_remove(self, member):
 		if member.guild.member_count > farm_conditions['min_member_count']:
 			bots = [member for member in member.guild.members if member.bot]
