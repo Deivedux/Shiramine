@@ -15,7 +15,7 @@ c = conn.cursor()
 def check_perms(guild, author, member, role_perm):
 	highest_role = None
 	for role in author.roles:
-		if role != guild.default_role and role.permissions == role_perm:
+		if role != guild.default_role and role.permissions == role_perm or role.permissions.administrator:
 			highest_role = role
 			break
 
