@@ -5,7 +5,7 @@ from cogs.ObjectCache import config
 
 farm_conditions = config['anti_bot_farm']['leave_guild_if']
 
-class AntiFarm:
+class AntiFarm(commands.Cog):
 	def __init__(self, bot):
 		self.bot = bot
 

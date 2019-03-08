@@ -7,7 +7,7 @@ from cogs.ObjectCache import config
 
 webhook_url = config['botlog_webhook_url']
 
-class BotLog:
+class BotLog(commands.Cog):
 	def __init__(self, bot):
 		self.bot = bot
 

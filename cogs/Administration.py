@@ -35,7 +35,7 @@ def dm_member(method, guild, moderator, reason):
 	return embed
 
 def member_action_confirm(guild, method, member, reason):
-	embed = discord.Embed(, color = 0xFFFF00)
+	embed = discord.Embed(color = 0xFFFF00)
 	embed.set_author(name = get_lang(guild, method), icon_url = member.avatar_url)
 	embed.add_field(name = get_lang(guild, 'ADMINISTRATION_method_member_name'), value = str(member), inline = True)
 	embed.add_field(name = get_lang(guild, 'ADMINISTRATION_method_member_id'), value = str(member.id), inline = True)
