@@ -136,5 +136,7 @@
 	"UTILITY_lookup_invitecode": "Invite Code",
 	"UTILITY_lookup_features": "Features",
 	"UTILITY_lookup_activemembers": "Active Members",
-	"UTILITY_raffle_string": "Random Member"
+	"UTILITY_raffle_string": "Random Member",
+	"OWNERONLY_leave": "Successfully left the server.",
+	"OWNERONLY_shutdown": "Shutting down."
 }

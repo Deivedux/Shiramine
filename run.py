@@ -23,7 +23,7 @@ async def get_prefix(bot, message):
 bot = commands.AutoShardedBot(command_prefix = get_prefix, case_insensitive = True, max_messages = 100)
 bot.remove_command('help')
 
-startup_extensions = ['cogs.Events', 'cogs.Administration', 'cogs.Help', 'cogs.Utility', 'cogs.MemberPresence']
+startup_extensions = ['cogs.Events', 'cogs.Administration', 'cogs.Help', 'cogs.Utility', 'cogs.MemberPresence', 'cogs.OwnerOnly']
 for cog in startup_extensions:
 	try:
 		bot.load_extension(cog)

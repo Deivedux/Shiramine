@@ -183,6 +183,14 @@
 		"examples": ["setlang english"],
 		"module": "Utility"
 	},
+	"stats": {
+		"title": ["stats"],
+		"description": "HELP_command_stats",
+		"user_permissions": ["HELP_permission_none"],
+		"bot_permissions": ["HELP_permission_none"],
+		"examples": ["stats"],
+		"module": "Utility"
+	},
 	"ping": {
 		"title": ["ping"],
 		"description": "HELP_command_ping",
