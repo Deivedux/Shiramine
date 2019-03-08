@@ -47,7 +47,7 @@ class Help(commands.Cog):
 
 	@commands.command()
 	async def invite(self, ctx):
-		await ctx.send(embed = discord.Embed(description = '[Support Server](https://discord.gg/sbySHxA)\n[Add Me](https://discordapp.com/oauth2/authorize?client_id=' + str(self.bot.user.id) + '&scope=bot&permissions=0)\n[GitHub](https://github.com/Deivedux/Shiramine)', color = 0x00FF00))
+		await ctx.send(embed = discord.Embed(description = '[Support Server](https://discord.gg/sbySHxA)\n[Add Me](https://discordapp.com/oauth2/authorize?client_id=' + str(self.bot.user.id) + '&scope=bot&permissions=0)\n[GitHub](https://github.com/Deivedux/Shiramine)\n[Patreon](https://www.patreon.com/QuoteBot)', color = 0x00FF00))
 
 
 def setup(bot):
