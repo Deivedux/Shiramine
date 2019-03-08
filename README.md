@@ -9,8 +9,8 @@ A multilingual general-purpose Discord bot.
 
 ## Help
 
-* The bot comes with a `>help` function that shows the list of all available commands. 
-* You can type `>help <exampleCommand>` to see more information about each command.
+* The bot comes with a `.help` function that shows the list of all available commands. 
+* You can type `.help <exampleCommand>` to see more information about each command.
 
 
 ## Set Language
