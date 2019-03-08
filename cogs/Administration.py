@@ -35,8 +35,8 @@ def dm_member(method, guild, moderator, reason):
 	return embed
 
 def member_action_confirm(guild, method, member, reason):
-	embed = discord.Embed(title = get_lang(guild, method), color = 0xFFFF00)
-	embed.set_thumbnail(url = member.avatar_url)
+	embed = discord.Embed(, color = 0xFFFF00)
+	embed.set_author(name = get_lang(guild, method), icon_url = member.avatar_url)
 	embed.add_field(name = get_lang(guild, 'ADMINISTRATION_method_member_name'), value = str(member), inline = True)
 	embed.add_field(name = get_lang(guild, 'ADMINISTRATION_method_member_id'), value = str(member.id), inline = True)
 	if reason:
@@ -64,25 +64,30 @@ class Administration(commands.Cog):
 
 			if del_msg == True:
 				await message.delete()
-				await message.channel.send(content = get_lang(message.guild, 'ADMINISTRATION_imgfilter_deleted').format(message.author.mention, str(round(response_json['predictions']['adult']))))
+				await message.channel.send(embed = discord.Embed(title = get_lang(message.guild, 'ADMINISTRATION_imgfilter_deleted_title'), description = get_lang(message.guild, 'ADMINISTRATION_imgfilter_deleted_description').format(message.author.mention, str(round(response_json['predictions']['adult']))), color = 0xFF0000))
 
 	@commands.Cog.listener()
 	async def on_member_remove(self, member):
-		if server_config[member.guild.id]['member_persistence'] == 1 and (len(member.roles) > 1 or member.nick):
+		if not member.bot and server_config[member.guild.id]['member_persistence'] == 1 and (len(member.roles) > 1 or member.nick):
 			c.execute("INSERT INTO MemberPersistence (Guild, User" + (', Nickname' if member.nick else '') + (', Roles' if len(member.roles) > 1 else '') + ") VALUES (" + str(member.guild.id) + ", " + str(member.id) + (", '" + member.nick.replace('\'', '\'\'') + "'" if member.nick else "") + (", '" + "|".join([str(role.id) for role in member.roles if role != member.guild.default_role]) + "'" if len(member.roles) > 1 else "") + ")")
 			conn.commit()
 
 	@commands.Cog.listener()
 	async def on_member_join(self, member):
-		if server_config[member.guild.id]['member_persistence'] == 1:
-			db_response = c.execute("SELECT Nickname, Roles FROM MemberPersistence WHERE Guild = " + str(member.guild.id) + " AND User = " + str(member.id)).fetchall()[-1]
+		if not member.bot and server_config[member.guild.id]['member_persistence'] == 1:
+			try:
+				db_response = c.execute("SELECT Nickname, Roles FROM MemberPersistence WHERE Guild = " + str(member.guild.id) + " AND User = " + str(member.id)).fetchall()[-1]
+			except:
+				return
+
 			if db_response:
 				nickname = db_response[0]
 				roles = list()
-				for i in db_response[1].split('|'):
-					role = member.guild.get_role(int(i))
-					if role and role < member.guild.me.top_role:
-						roles.append(role)
+				if db_response[1]:
+					for i in db_response[1].split('|'):
+						role = member.guild.get_role(int(i))
+						if role and role < member.guild.me.top_role:
+							roles.append(role)
 
 				if nickname and len(roles) == 0:
 					await member.edit(nick = nickname)

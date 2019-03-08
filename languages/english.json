@@ -27,7 +27,7 @@
 	"HELP_command_userinfo": "Shows general information about the user. Defaults to yourself.",
 	"HELP_command_avatar": "Shows the full size of a user's avatar. Defaults to yourself.",
 	"HELP_command_serverinfo": "Shows general information about the server.",
-	"HELP_command_lookup": "",
+	"HELP_command_lookup": "Show general information about a Discord invite URL/code. This command is limited to 2 uses within the 10 second period per user, to avoid excessive spam.",
 	"HELP_command_raffle": "Pick a random member from the server or role.",
 	"HELP_command_notfound": "Command with that name does not exist. Make sure to provide the full command name, not any of it's aliases.",
 	"HELP_permission_string_user": "User Permissions",
@@ -74,7 +74,8 @@
 	"ADMINISTRATION_imgfilter_disable_fail": "Image filter is already disabled.",
 	"ADMINISTRATION_imgfilter_disable_success": "Image filter disabled.",
 	"ADMINISTRATION_imgfilter_enable": "Images that are **{0}% likely to be NSFW** will be deleted.",
-	"ADMINISTRATION_imgfilter_deleted": "{0}, your image was {1}% likely to be NSFW.",
+	"ADMINISTRATION_imgfilter_deleted_title": "Image Filter",
+	"ADMINISTRATION_imgfilter_deleted_description": "{0} has posted an image which was {1}% likely to be NSFW.",
 	"ADMINISTRATION_memberpersistence_enabled": "Member persistence enabled.",
 	"ADMINISTRATION_memberpersistence_disabled": "Member persistence disabled.",
 	"MEMBERPRESENCE_greetmsg_currentmsg": "Current Greet Message",
@@ -130,6 +131,7 @@
 	"UTILITY_lookup_inviter": "Inviter",
 	"UTILITY_lookup_channel": "Channel",
 	"UTILITY_lookup_invitecode": "Invite Code",
+	"UTILITY_lookup_features": "Features",
 	"UTILITY_lookup_activemembers": "Active Members",
 	"UTILITY_raffle_string": "Random Member"
 }

@@ -100,7 +100,7 @@
 		"description": "HELP_command_imgfilter",
 		"user_permissions": ["HELP_permission_manageserver"],
 		"bot_permissions": ["HELP_permission_managemessages"],
-		"examples": ["imgfilter 80", "imgfilter"],
+		"examples": ["imgfilter 70", "imgfilter"],
 		"module": "Administration"
 	},
 	"memberpersistence": {

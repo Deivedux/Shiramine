@@ -22,7 +22,7 @@ class Help(commands.Cog):
 
 		if not command_name:
 
-			embed = discord.Embed(description = 'I\'m a multilingual general-purpose bot with useful/fun features.\n\nDon\'t see your language? Add your language [here](https://github.com/Deivedux/Shiramine/tree/master/languages).', color = 0x00FF00)
+			embed = discord.Embed(color = 0x00FF00)
 			embed.set_author(name = self.bot.user.name, icon_url = self.bot.user.avatar_url)
 			embed.add_field(name = 'Help', value = ', '.join(['`' + guild_prefix + i + '`' for i in commands_json.keys() if commands_json[i]['module'] == 'Help']), inline = False)
 			embed.add_field(name = 'Administration', value = ', '.join(['`' + guild_prefix + i + '`' for i in commands_json.keys() if commands_json[i]['module'] == 'Administration']), inline = False)
