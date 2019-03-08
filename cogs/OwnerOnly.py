@@ -12,7 +12,7 @@ class OwnerOnly(commands.Cog):
 
 	@commands.command()
 	@commands.check(is_owner)
-	async def leave(self, ctx, guild: discord.Guild = None):
+	async def leaveserver(self, ctx, guild: discord.Guild = None):
 		if not guild:
 			guild = ctx.guild
 
