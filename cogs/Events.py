@@ -27,7 +27,8 @@ class Events(commands.Cog):
 
 		conn.commit()
 
-		for i in server_config.keys():
+		configs = server_config.keys()
+		for i in configs:
 			guild = self.bot.get_guild(i)
 			if not guild:
 				del server_config[i]
