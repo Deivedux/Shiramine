@@ -6,7 +6,9 @@ import random
 from discord.ext import commands
 from cogs.ObjectCache import response_string
 from cogs.ObjectCache import get_lang
+from cogs.ObjectCache import config
 from cogs.ObjectCache import server_config
+from cogs.ObjectCache import start_time
 
 conn = sqlite3.connect('configs/Database.db')
 c = conn.cursor()
@@ -36,6 +38,20 @@ class Utility(commands.Cog):
 			conn.commit()
 			server_config[ctx.guild.id]['language'] = lang.lower()
 			await ctx.send(embed = discord.Embed(description = get_lang(ctx.guild, 'UTILITY_language_set_success'), color = 0x00FF00))
+
+	@commands.command()
+	async def stats(self, ctx):
+		seconds = time.time() - start_time
+		minutes, seconds = divmod(seconds, 60)
+		hours, minutes = divmod(minutes, 60)
+		days, hours = divmod(hours, 24)
+
+		embed = discord.Embed(color = 0x00FF00)
+		embed.set_author(name = self.bot.user.name, icon_url = self.bot.user.avatar_url_as(size = 128))
+		embed.add_field(name = get_lang(ctx.guild, 'UTILITY_stats_uptime'), value = str(int(days)) + ' days\n' + str(int(hours)) + ' hours\n' + str(int(minutes)) + ' minutes')
+		embed.add_field(name = get_lang(ctx.guild, 'UTILITY_stats_owners'), value = ('\n'.join(config['owner_ids']) if len(config['owner_ids']) > 0 else get_lang(ctx.guild, 'HELP_permission_none')))
+		embed.add_field(name = get_lang(ctx.guild, 'UTILITY_stats_presence'), value = str(len(self.bot.guilds)) + ' servers')
+		await ctx.send(embed = embed)
 
 	@commands.command()
 	async def ping(self, ctx):
