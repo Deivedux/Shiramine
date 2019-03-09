@@ -23,6 +23,7 @@
 	"HELP_command_greetdmmsg": "Show the current greet DM message, or set a new one.\n`&user&` - user name.\n`&server&` - server name.",
 	"HELP_command_languages": "Shows a list of available language translations.",
 	"HELP_command_setlang": "Set the language which you will be receiving further responses in.",
+	"HELP_command_stats": "Show bot's basic statistics.",
 	"HELP_command_ping": "Shows the message roundtrip latency.",
 	"HELP_command_userinfo": "Shows general information about the user. Defaults to yourself.",
 	"HELP_command_avatar": "Shows the full size of a user's avatar. Defaults to yourself.",
