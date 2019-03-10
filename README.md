@@ -1,5 +1,5 @@
 [![Support Server](https://discordapp.com/api/guilds/418455732741079040/widget.png?style=shield)](https://discord.gg/sbySHxA)
-[![Shiramine Bot](https://discordbots.org/api/widget/status/553377596814000140.svg)](https://discordbots.org/bot/553377596814000140)
+[![Discord Bots](https://discordbots.org/api/widget/upvotes/553377596814000140.svg)](https://discordbots.org/bot/553377596814000140/vote)
 
 # Shiramine
 A multilingual general-purpose Discord bot.
