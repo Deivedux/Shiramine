@@ -12,6 +12,18 @@ class OwnerOnly(commands.Cog):
 
 	@commands.command()
 	@commands.check(is_owner)
+	async def setstatus(self, ctx, status_type: int, *, status):
+		status = status.split(' | ')
+
+		if len(status) == 2:
+			await self.bot.change_presence(activity = discord.Activity(name = status[0], type = status_type, url = status[1]))
+		else:
+			await self.bot.change_presence(activity = discord.Activity(name = status[0], type = status_type))
+
+		await ctx.send(embed = discord.Embed(description = get_lang(ctx.guild, ''), color = 0x00FF00))
+
+	@commands.command()
+	@commands.check(is_owner)
 	async def leaveserver(self, ctx, guild: discord.Guild = None):
 		if not guild:
 			guild = ctx.guild
