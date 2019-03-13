@@ -56,9 +56,9 @@ class Utility(commands.Cog):
 	@commands.command()
 	async def ping(self, ctx):
 		now = time.time()
-		msg = await ctx.send(content = ':ping_pong:')
-		ping = (time.time() - now) * 1000
-		await msg.edit(content = None, embed = discord.Embed(description = ':ping_pong: ' + str(round(ping)) + 'ms', color = 0x00FF00))
+		msg = await ctx.send(content = '*Pinging...*')
+		ping = time.time() - now
+		await msg.edit(content = None, embed = discord.Embed(description = ':ping_pong: ' + get_lang(ctx.guild, 'UTILITY_ping_message').format(str(round(ping * 1000))) + '\n:desktop: ' + get_lang(ctx.guild, 'UTILITY_ping_latency').format(str(round(self.bot.latency * 1000))), color = 0x00FF00))
 
 	@commands.command(aliases = ['uinfo'])
 	async def userinfo(self, ctx, *, member: discord.Member = None):

@@ -103,6 +103,8 @@
 	"UTILITY_stats_uptime": "Uptime",
 	"UTILITY_stats_owners": "Owner IDs",
 	"UTILITY_stats_presence": "Presence",
+	"UTILITY_ping_message": "Message Roundtrip: `{0}ms`",
+	"UTILITY_ping_latency": "Discord Latency: `{0}ms`",
 	"UTILITY_userinfo_about": "About Member",
 	"UTILITY_userinfo_id": "ID",
 	"UTILITY_userinfo_username": "Username",
