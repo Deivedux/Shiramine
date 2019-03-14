@@ -4,6 +4,8 @@ from discord.ext import commands
 from cogs.ObjectCache import config
 from cogs.ObjectCache import server_config
 from cogs.ObjectCache import server_cache
+from cogs.ObjectCache import url_filters
+from cogs.ObjectCache import url_filter_cache
 
 conn = sqlite3.connect('configs/Database.db')
 c = conn.cursor()
@@ -30,11 +32,18 @@ class Events(commands.Cog):
 		configs = list()
 		for i in server_config.keys():
 			configs.append(i)
-
 		for i in configs:
 			guild = self.bot.get_guild(i)
 			if not guild:
 				del server_config[i]
+
+		filters = list()
+		for i in url_filters.keys():
+			filters.append(i)
+		for i in filters:
+			guild = self.bot.get_guild(i)
+			if not guild:
+				del url_filters[i]
 
 	@commands.Cog.listener()
 	async def on_guild_join(self, guild):
@@ -42,11 +51,11 @@ class Events(commands.Cog):
 		if not conf:
 			c.execute(sql_insert.format(str(guild.id)))
 			conn.commit()
-
 			conf = c.execute("SELECT * FROM ServerConfig WHERE Guild = " + str(guild.id)).fetchone()
-			server_cache(conf)
-		else:
-			server_cache(conf)
+		server_cache(conf)
+
+		conf = c.execute("SELECT * FROM URLFilters WHERE Guild = " + str(guild.id)).fetchone()
+		url_filter_cache(conf)
 
 	@commands.Cog.listener()
 	async def on_guild_remove(self, guild):

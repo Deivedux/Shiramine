@@ -4,10 +4,13 @@ import datetime
 import json
 import aiohttp
 import urllib
+import re
+import asyncio
 from discord.ext import commands
 from cogs.ObjectCache import config
 from cogs.ObjectCache import server_config
 from cogs.ObjectCache import get_lang
+from cogs.ObjectCache import url_filters
 
 conn = sqlite3.connect('configs/Database.db')
 c = conn.cursor()
@@ -44,12 +47,22 @@ def member_action_confirm(guild, method, member, reason):
 
 	return embed
 
+def find_urls(message):
+	urls = re.findall(r'http[s]?://(?:[a-zA-Z]|[0-9]|[$-_@.&+]|[!*\(\),]|(?:%[0-9a-fA-F][0-9a-fA-F]))+', message.content)
+	return urls
+
+url_permit = list()
+
 class Administration(commands.Cog):
 	def __init__(self, bot):
 		self.bot = bot
 
 	@commands.Cog.listener()
 	async def on_message(self, message):
+		if message.guild and not message.author.bot and not message.author.guild_permissions.manage_messages and message.guild.me.permissions_in(message.channel).manage_messages and message.channel.id in url_filters[message.guild.id] and message.author not in url_permit:
+			if len(find_urls(message)) > 0:
+				return await message.delete()
+
 		if isinstance(message.channel, discord.TextChannel) and not message.author.bot and message.attachments and not message.channel.is_nsfw() and 'img_filter' in server_config[message.guild.id].keys() and message.guild.me.permissions_in(message.channel).manage_messages:
 			del_msg = False
 			for attachment in message.attachments:
@@ -295,6 +308,49 @@ class Administration(commands.Cog):
 			conn.commit()
 			server_config[ctx.guild.id]['img_filter'] = level
 			await ctx.send(embed = discord.Embed(description = get_lang(ctx.guild, 'ADMINISTRATION_imgfilter_enable').format(str(level)), color = 0x00FF00))
+
+	@commands.command()
+	@commands.has_permissions(manage_guild = True)
+	async def urlfilter(self, ctx, channel: discord.TextChannel = None):
+		if not channel:
+			channel = ctx.channel
+
+		try:
+			c.execute("INSERT INTO URLFilters VALUES (" + str(ctx.guild.id) + ", " + str(ctx.channel.id) + ")")
+			conn.commit()
+			try:
+				url_filters[ctx.guild.id].append(channel.id)
+			except:
+				url_filters[ctx.guild.id] = [channel.id]
+			await ctx.send(embed = discord.Embed(description = get_lang(ctx.guild, 'ADMINISTRATION_urlfilter_enabled'), color = 0x00FF00))
+		except sqlite3.IntegrityError:
+			c.execute("DELETE FROM URLFilters WHERE Channel = " + str(ctx.channel.id))
+			conn.commit()
+			url_filters[ctx.guild.id].remove(channel.id)
+			if len(url_filters[ctx.guild.id]) == 0:
+				del url_filters[ctx.guild.id]
+			await ctx.send(embed = discord.Embed(description = get_lang(ctx.guild, 'ADMINISTRATION_urlfilter_disabled'), color = 0x00FF00))
+
+	@commands.command()
+	@commands.has_permissions(manage_messages = True)
+	async def permit(self, ctx, member: discord.Member):
+		if ctx.guild.id not in url_filters.keys():
+			await ctx.send(embed = discord.Embed(description = get_lang(ctx.guild, 'ADMINISTRATION_permit_nochannel'), color = 0xFF0000))
+		elif member.guild_permissions.manage_messages:
+			await ctx.send(embed = discord.Embed(description = get_lang(ctx.guild, 'ADMINISTRATION_permit_fail'), color = 0xFF0000))
+		else:
+			url_permit.append(member)
+			await ctx.send(embed = discord.Embed(description = get_lang(ctx.guild, 'ADMINISTRATION_permit_success').format(member.mention), color = 0x00FF00))
+
+			def check(m):
+				return m.author == member and m.channel.id in url_filters[ctx.guild.id] and find_urls(m)
+
+			try:
+				await self.bot.wait_for('message', check = check, timeout = 60)
+			except asyncio.TimeoutError:
+				url_permit.remove(member)
+			else:
+				url_permit.remove(member)
 
 	@commands.command()
 	@commands.has_permissions(manage_guild = True)

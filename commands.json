@@ -103,6 +103,22 @@
 		"examples": ["imgfilter 70", "imgfilter"],
 		"module": "Administration"
 	},
+	"urlfilter": {
+		"title": ["urlfilter"],
+		"description": "HELP_command_urlfilter",
+		"user_permissions": ["HELP_permission_manageserver"],
+		"bot_permissions": ["HELP_permission_managemessages"],
+		"examples": ["urlfilter"],
+		"module": "Administration"
+	},
+	"permit": {
+		"title": ["permit"],
+		"description": "HELP_command_permit",
+		"user_permissions": ["HELP_permission_managemessages"],
+		"bot_permissions": ["HELP_permission_none"],
+		"examples": ["permit @Member"],
+		"module": "Administration"
+	},
 	"memberpersistence": {
 		"title": ["memberpersistence"],
 		"description": "HELP_command_memberpersistence",
