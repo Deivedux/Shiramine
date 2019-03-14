@@ -289,7 +289,7 @@ class Administration(commands.Cog):
 		else:
 
 			if level > 100:
-				level = 100
+				return await ctx.send(embed = discord.Embed(description = get_lang(ctx.guild, 'ADMINISTRATION_imgfilter_overflow'), color = 0xFF0000))
 
 			c.execute("UPDATE ServerConfig SET ImgFilter = " + str(level) + " WHERE Guild = " + str(ctx.guild.id))
 			conn.commit()

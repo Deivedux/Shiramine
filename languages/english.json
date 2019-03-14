@@ -74,6 +74,7 @@
 	"ADMINISTRATION_imgfilter_nokey": "The bot owner did not set up the required API key for this function to work.",
 	"ADMINISTRATION_imgfilter_disable_fail": "Image filter is already disabled.",
 	"ADMINISTRATION_imgfilter_disable_success": "Image filter disabled.",
+	"ADMINISTRATION_imgfilter_overflow": "NSFW rate must not be over 100%, although who would go for such a high value...",
 	"ADMINISTRATION_imgfilter_enable": "Images that are **{0}% likely to be NSFW** will be deleted.",
 	"ADMINISTRATION_imgfilter_deleted_title": "Image Filter",
 	"ADMINISTRATION_imgfilter_deleted_description": "{0} has posted an image which was {1}% likely to be NSFW.",
