@@ -183,6 +183,30 @@
 		"examples": ["greetdmmsg", "greetdmmsg Welcome &user&!"],
 		"module": "MemberPresence"
 	},
+	"currency": {
+		"title": ["currency", "cur"],
+		"description": "HELP_command_currency",
+		"user_permissions": ["HELP_permission_none"],
+		"bot_permissions": ["HELP_permission_none"],
+		"examples": ["currency", "currency @User"],
+		"module": "Economy"
+	},
+	"claim": {
+		"title": ["claim"],
+		"description": "HELP_command_claim",
+		"user_permissions": ["HELP_permission_none"],
+		"bot_permissions": ["HELP_permission_none"],
+		"examples": ["claim"],
+		"module": "Economy"
+	},
+	"leaderboard": {
+		"title": ["leaderboard", "lb"],
+		"description": "HELP_command_leaderboard",
+		"user_permissions": ["HELP_permission_none"],
+		"bot_permissions": ["HELP_permission_none"],
+		"examples": ["lb"],
+		"module": "Economy"
+	},
 	"languages": {
 		"title": ["languages"],
 		"description": "HELP_command_languages",

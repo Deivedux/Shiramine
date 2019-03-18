@@ -6,6 +6,7 @@ conn = sqlite3.connect('configs/Database.db', detect_types = sqlite3.PARSE_DECLT
 c = conn.cursor()
 c.execute("CREATE TABLE IF NOT EXISTS ServerConfig (Guild INTEGER unique, Prefix TEXT, Language TEXT, ImgFilter INTEGER, GreetMsg TEXT, GreetChannel INTEGER, GreetDel INTEGER, LeaveMsg TEXT, LeaveChannel INTEGER, LeaveDel INTEGER, GreetDmMsg TEXT, GreetDmToggle INTEGER, MemberPersistence INTEGER)")
 c.execute("CREATE TABLE IF NOT EXISTS URLFilters (Guild INTEGER, Channel INTEGER unique)")
+c.execute("CREATE TABLE IF NOT EXISTS Currency (User INTEGER unique, Amount INTEGER, Claimed TIMESTAMP)")
 c.execute("CREATE TABLE IF NOT EXISTS SelfAssignableRoles (Guild INTEGER, Role INTEGER)")
 c.execute("CREATE TABLE IF NOT EXISTS MemberPersistence (Guild INTEGER, User INTEGER, Nickname TEXT, Roles TEXT)")
 
@@ -24,7 +25,7 @@ async def get_prefix(bot, message):
 bot = commands.AutoShardedBot(command_prefix = get_prefix, case_insensitive = True, max_messages = 100)
 bot.remove_command('help')
 
-startup_extensions = ['cogs.Events', 'cogs.Administration', 'cogs.Help', 'cogs.Utility', 'cogs.MemberPresence', 'cogs.OwnerOnly']
+startup_extensions = ['cogs.Events', 'cogs.Administration', 'cogs.Help', 'cogs.Utility', 'cogs.MemberPresence', 'cogs.OwnerOnly', 'cogs.Economy']
 for cog in startup_extensions:
 	try:
 		bot.load_extension(cog)

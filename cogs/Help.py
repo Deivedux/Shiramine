@@ -38,8 +38,8 @@ class Help(commands.Cog):
 				return await ctx.send(embed = discord.Embed(description = get_lang(ctx, 'HELP_command_notfound'), color = 0xFF0000))
 
 			embed = discord.Embed(title = ' / '.join(['`' + guild_prefix + i + '`' for i in cmd_data['title']]), description = get_lang(ctx.guild, cmd_data['description']), color = 0x00FF00)
-			embed.add_field(name = get_lang(ctx.guild, 'HELP_permission_string_user'), value = '\n'.join([get_lang(ctx.guild, i) for i in cmd_data['user_permissions']]), inline = True)
-			embed.add_field(name = get_lang(ctx.guild, 'HELP_permission_string_bot'), value = '\n'.join([get_lang(ctx.guild, i) for i in cmd_data['bot_permissions']]), inline = True)
+			embed.add_field(name = get_lang(ctx.guild, 'HELP_permission_string_user'), value = '\n'.join(['`' + get_lang(ctx.guild, i) + '`' for i in cmd_data['user_permissions']]), inline = True)
+			embed.add_field(name = get_lang(ctx.guild, 'HELP_permission_string_bot'), value = '\n'.join(['`' + get_lang(ctx.guild, i) + '`' for i in cmd_data['bot_permissions']]), inline = True)
 			embed.add_field(name = get_lang(ctx.guild, 'HELP_example_string'), value = ' or '.join(['`' + guild_prefix + i + '`' for i in cmd_data['examples']]), inline = False)
 			embed.set_footer(text = 'Module: ' + cmd_data['module'])
 
