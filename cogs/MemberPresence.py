@@ -39,7 +39,7 @@ class MemberPresence(commands.Cog):
 		if not msg:
 			db_response = c.execute("SELECT GreetMsg FROM ServerConfig WHERE Guild = " + str(ctx.guild.id)).fetchone()
 			await ctx.send(embed = discord.Embed(title = get_lang(ctx.guild, 'MEMBERPRESENCE_greetmsg_currentmsg'), description = db_response[0], color = 0x00FF00))
-		elif ctx.author.guild_permissions.manage_server:
+		elif ctx.author.guild_permissions.manage_guild:
 			c.execute("UPDATE ServerConfig SET GreetMsg = '" + msg.replace('\'', '\'\'') + "' WHERE Guild = " + str(ctx.guild.id))
 			conn.commit()
 			await ctx.send(embed = discord.Embed(description = get_lang(ctx.guild, 'MEMBERPRESENCE_greetmsg_updatemsg'), color = 0x00FF00))
@@ -77,7 +77,7 @@ class MemberPresence(commands.Cog):
 		if not msg:
 			db_response = c.execute("SELECT LeaveMsg FROM ServerConfig WHERE Guild = " + str(ctx.guild.id)).fetchone()
 			await ctx.send(embed = discord.Embed(title = get_lang(ctx.guild, 'MEMBERPRESENCE_leavemsg_currentmsg'), description = db_response[0], color = 0x00FF00))
-		elif ctx.author.guild_permissions.manage_server:
+		elif ctx.author.guild_permissions.manage_guild:
 			c.execute("UPDATE ServerConfig SET LeaveMsg = '" + msg.replace('\'', '\'\'') + "' WHERE Guild = " + str(ctx.guild.id))
 			conn.commit()
 			await ctx.send(embed = discord.Embed(description = get_lang(ctx.guild, 'MEMBERPRESENCE_leavemsg_updatemsg'), color = 0x00FF00))
@@ -115,7 +115,7 @@ class MemberPresence(commands.Cog):
 		if not msg:
 			db_response = c.execute("SELECT GreetDmMsg FROM ServerConfig WHERE Guild = " + str(ctx.guild.id)).fetchone()
 			await ctx.send(embed = discord.Embed(title = get_lang(ctx.guild, 'MEMBERPRESENCE_greetdmmsg_currentmsg'), description = db_response[0], color = 0x00FF00))
-		elif ctx.author.guild_permissions.manage_server:
+		elif ctx.author.guild_permissions.manage_guild:
 			c.execute("UPDATE ServerConfig SET GreetDmMsg = '" + msg.replace('\'', '\'\'') + "' WHERE Guild = " + str(ctx.guild.id))
 			conn.commit()
 			await ctx.send(embed = discord.Embed(description = get_lang(ctx.guild, 'MEMBERPRESENCE_greetdmmsg_updatemsg'), color = 0x00FF00))
