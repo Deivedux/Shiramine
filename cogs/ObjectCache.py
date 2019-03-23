@@ -23,9 +23,7 @@ def server_cache(db_response):
 		server_config[int(db_response[0])]['img_filter'] = int(db_response[3])
 	server_config[int(db_response[0])]['member_persistence'] = int(db_response[12])
 	if db_response[13]:
-		server_config[int(db_response[0])]['mod_log'] = int(db_response[13])
-	if db_response[14]:
-		server_config[int(db_response[0])]['server_log'] = int(db_response[14])
+		server_config[int(db_response[0])]['server_log'] = int(db_response[13])
 
 for i in server_config_raw:
 	server_cache(i)
