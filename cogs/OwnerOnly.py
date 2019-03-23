@@ -20,7 +20,7 @@ class OwnerOnly(commands.Cog):
 		else:
 			await self.bot.change_presence(activity = discord.Activity(name = status[0], type = status_type))
 
-		await ctx.send(embed = discord.Embed(description = get_lang(ctx.guild, ''), color = 0x00FF00))
+		await ctx.send(embed = discord.Embed(description = get_lang(ctx.guild, 'OWNERONLY_status'), color = 0x00FF00))
 
 	@commands.command()
 	@commands.check(is_owner)

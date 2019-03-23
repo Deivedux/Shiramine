@@ -127,6 +127,22 @@
 		"examples": ["memberpersistence"],
 		"module": "Administration"
 	},
+	"serverlog": {
+		"title": ["serverlog"],
+		"description": "HELP_command_serverlog",
+		"user_permissions": ["HELP_permission_manageserver"],
+		"bot_permissions": ["HELP_permission_none"],
+		"examples": ["serverlog #logs", "serverlog"],
+		"module": "Administration"
+	},
+	"modlog": {
+		"title": ["modlog"],
+		"description": "HELP_command_modlog",
+		"user_permissions": ["HELP_permission_manageserver"],
+		"bot_permissions": ["HELP_permission_none"],
+		"examples": ["modlog #logs", "modlog"],
+		"module": "Administration"
+	},
 	"greetmsg": {
 		"title": ["greetmsg"],
 		"description": "HELP_command_greetmsg",

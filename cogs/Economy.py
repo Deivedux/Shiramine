@@ -31,12 +31,18 @@ class Economy(commands.Cog):
 	@commands.command()
 	@commands.check(is_owner)
 	async def award(self, ctx, user_id: int, amount: int):
+		if amount < 1:
+			return await ctx.send(embed = discord.Embed(description = get_lang(ctx.guild, 'ECONOMY_award_nocurr'), color = 0xFF0000))
+
 		user = self.bot.get_user(user_id)
 		if not user:
 			try:
 				user = await self.bot.get_user_info(user_id)
 			except discord.NotFound:
 				return await ctx.send(embed = discord.Embed(description = get_lang(ctx.guild, 'ECONOMY_award_nouser'), color = 0xFF0000))
+
+		if user.bot:
+			return await ctx.send(embed = discord.Embed(description = get_lang(ctx.guild, 'ECONOMY_award_nobot'), color = 0xFF0000))
 
 		try:
 			c.execute("INSERT INTO Currency (User, Amount) VALUES (" + str(user.id) + ", " + str(amount) + ")")
@@ -53,6 +59,9 @@ class Economy(commands.Cog):
 	@commands.command()
 	@commands.check(is_owner)
 	async def take(self, ctx, user_id: int, amount: int):
+		if amount < 1:
+			return await ctx.send(embed = discord.Embed(description = get_lang(ctx.guild, 'ECONOMY_take_nocurr'), color = 0xFF0000))
+
 		user = self.bot.get_user(user_id)
 		if not user:
 			try:
@@ -83,6 +92,9 @@ class Economy(commands.Cog):
 
 	@commands.command()
 	async def give(self, ctx, user: discord.User, amount: int):
+		if user.bot:
+			return await ctx.send(embed = discord.Embed(description = get_lang(ctx.guild, 'ECONOMY_give_nobot'), color = 0xFF0000))
+
 		db_response = c.execute("SELECT Amount FROM Currency WHERE User = " + str(ctx.author.id)).fetchone()
 		if not db_response or amount > db_response[0] or amount < 0:
 			await ctx.send(embed = discord.Embed(description = get_lang(ctx.guild, 'ECONOMY_give_fail'), color = 0xFF0000))
@@ -113,7 +125,10 @@ class Economy(commands.Cog):
 			else:
 				user = i[0]
 			users.append('`' + str(position) + '.` ' + str(user) + ' - **' + str(i[1]) + '** currency')
-		await ctx.send(embed = discord.Embed(title = get_lang(ctx.guild, 'ECONOMY_leaderboard_title'), description = '\n'.join(users), color = 0x00FF00))
+
+		embed = discord.Embed(title = get_lang(ctx.guild, 'ECONOMY_leaderboard_title'), description = '\n'.join(users), color = 0x00FF00)
+		embed.set_footer(text = get_lang(ctx.guild, 'ECONOMY_leaderboard_footer').format(str(page_number)))
+		await ctx.send(embed = embed)
 
 
 def setup(bot):
