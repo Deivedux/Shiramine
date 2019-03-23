@@ -212,8 +212,8 @@ class Administration(commands.Cog):
 
 	@commands.command()
 	@commands.guild_only()
-	async def lsar(self, ctx):
-		db_response = c.execute("SELECT Role FROM SelfAssignableRoles WHERE Guild = " + str(ctx.guild.id)).fetchall()
+	async def lsar(self, ctx, page_number: int = 1):
+		db_response = c.execute("SELECT Role FROM SelfAssignableRoles WHERE Guild = " + str(ctx.guild.id) + " LIMIT 10 OFFSET " + str(10 * (page_number - 1))).fetchall()
 		roles = list()
 		purge = False
 		for i in db_response:
@@ -228,15 +228,15 @@ class Administration(commands.Cog):
 		if purge == True:
 			conn.commit()
 
-		await ctx.send(embed = discord.Embed(title = get_lang(ctx.guild, 'ADMINISTRATION_selfassign_list'), description = '\n'.join([str(role) for role in roles]), color = 0x00FF00))
+		embed = discord.Embed(title = get_lang(ctx.guild, 'ADMINISTRATION_selfassign_list'), description = '\n'.join([str(role) for role in roles]), color = 0x00FF00)
+		embed.set_footer(text = get_lang(ctx.guild, 'ECONOMY_leaderboard_footer').format(str(page_number)))
+		await ctx.send(embed = embed)
 
 	@commands.command()
 	@commands.has_permissions(manage_roles = True)
 	async def asar(self, ctx, *, role: discord.Role):
-		roles = c.execute("SELECT Role FROM SelfAssignableRoles WHERE Guild = " + str(ctx.guild.id)).fetchall()
-		if len(roles) == 10:
-			await ctx.send(embed = discord.Embed(description = get_lang(ctx.guild, 'ADMINISTRATION_selfassign_add_nolimit'), color = 0xFF0000))
-		elif role.id in [role[0] for role in roles]:
+		db_response = c.execute("SELECT * FROM SelfAssignableRoles WHERE Role = " + str(role.id)).fetchone()
+		if db_response:
 			await ctx.send(embed = discord.Embed(description = get_lang(ctx.guild, 'ADMINISTRATION_selfassign_add_fail').format(role.mention), color = 0xFF0000))
 		else:
 			c.execute("INSERT INTO SelfAssignableRoles VALUES (" + str(ctx.guild.id) + ", " + str(role.id) + ")")
