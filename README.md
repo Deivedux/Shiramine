@@ -86,4 +86,4 @@ A multilingual general-purpose Discord bot.
 
   * [**Ko-fi**](https://ko-fi.com/AzusaRS): buy me a Dr. Pepper
 
-  * [**PayPal**](https://paypal.me/izumicchi): Direct donation. Ko-fi if you don't want to pay any tax when doanting.
+  * [**PayPal**](https://paypal.me/izumicchi): Direct donation. Ko-fi if you don't want to pay any tax when donating.
