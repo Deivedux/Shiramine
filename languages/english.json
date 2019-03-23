@@ -129,7 +129,7 @@
 	"ECONOMY_take_success": "Successfully took **{1}** currency from **{0}**.",
 	"ECONOMY_take_fail": "That user does not have that much currency to take.",
 	"ECONOMY_claim_success": "{0} has claimed their weekly currency.",
-	"ECONOMY_claim_fail": "You have already claimed your weekly currency.",
+	"ECONOMY_claim_fail": "You have already claimed your weekly currency.\n\nYou can also [buy yourself currency](https://github.com/Deivedux/Shiramine#donations) if you don't want to wait a whole week.",
 	"ECONOMY_give_nobot": "There is no reason for bots to have currency.",
 	"ECONOMY_give_fail": "You do not have that much currency to give.",
 	"ECONOMY_give_success": "You gave **{1}** currency to **{0}**.",
