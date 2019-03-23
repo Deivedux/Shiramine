@@ -69,3 +69,21 @@ A multilingual general-purpose Discord bot.
 # Suggestions
 
 * Have a suggestion? Join our [**Support Server**](https://discord.gg/sbySHxA) and head over to #suggestions. Follow the template to submit your own suggestion.
+
+
+# Donations
+* Our [**Patreon**](https://www.patreon.com/QuoteBot) page really helps us cover the cost of hosting Quote for your communities. Use one-time donations in order to buy yourself currency (100 per $1; excluding fees):
+
+## Deivedux
+* Responsible for the bot's core functionality and back-end-related updates.
+
+  * [**Ko-fi**](https://ko-fi.com/deivedux): buy me a coffee.
+  
+  * [**PayPal**](https://www.paypal.me/Deivedux): direct donation. PS: refer to ko-fi if you wish to avoid PayPal taking any fees from your donation amount.
+
+## azusa-rs
+* Responsible for self-hosting clients and the documentation pages understandable for any average user.
+
+  * [**Ko-fi**](https://ko-fi.com/AzusaRS): buy me a Dr. Pepper
+
+  * [**PayPal**](https://paypal.me/izumicchi): Direct donation. Ko-fi if you don't want to pay any tax when doanting.
