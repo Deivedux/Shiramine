@@ -47,11 +47,13 @@ class Events(commands.Cog):
 
 	@commands.Cog.listener()
 	async def on_guild_join(self, guild):
-		conf = c.execute("SELECT * FROM ServerConfig WHERE Guild = " + str(guild.id)).fetchone()
-		if not conf:
+		try:
 			c.execute(sql_insert.format(str(guild.id)))
 			conn.commit()
-			conf = c.execute("SELECT * FROM ServerConfig WHERE Guild = " + str(guild.id)).fetchone()
+		except sqlite3.IntegrityError:
+			pass
+
+		conf = c.execute("SELECT * FROM ServerConfig WHERE Guild = " + str(guild.id)).fetchone()
 		server_cache(conf)
 
 		conf = c.execute("SELECT * FROM URLFilters WHERE Guild = " + str(guild.id)).fetchone()
