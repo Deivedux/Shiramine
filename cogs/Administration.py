@@ -385,25 +385,6 @@ class Administration(commands.Cog):
 
 			await ctx.send(embed = discord.Embed(description = get_lang(ctx.guild, 'ADMINISTRATION_serverlog_disabled'), color = 0x00FF00))
 
-	@commands.command()
-	@commands.has_permissions(manage_guild = True)
-	async def modlog(self, ctx, channel: discord.TextChannel = None):
-		if channel:
-
-			c.execute("UPDATE ServerConfig SET ModLogChannel = " + str(channel.id) + " WHERE Guild = " + str(ctx.guild.id))
-			conn.commit()
-			server_config[ctx.guild.id]['mod_log'] = channel.id
-
-			await ctx.send(embed = discord.Embed(description = get_lang(ctx.guild, 'ADMINISTRATION_modlog_enabled').format(channel.mention), color = 0x00FF00))
-
-		else:
-
-			c.execute("UPDATE ServerConfig SET ModLogChannel = NULL WHERE Guild = " + str(ctx.guild.id))
-			conn.commit()
-			del server_config[ctx.guild.id]['mod_log']
-
-			await ctx.send(embed = discord.Embed(description = get_lang(ctx.guild, 'ADMINISTRATION_modlog_disabled'), color = 0x00FF00))
-
 
 def setup(bot):
 	bot.add_cog(Administration(bot))
